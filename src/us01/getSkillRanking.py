@@ -1,3 +1,6 @@
+# import to use command-line arguments
+import sys
+
 def processaArquivo(arquivoEntrada,arquivoSaida,lista,separador):
     arqIn = open(arquivoEntrada,"r")
     arqOut = open(arquivoSaida,"w")
@@ -67,6 +70,6 @@ def compare(x, y):
     return num2-num
 
 
-#extrairAtributos("elanceSample.txt","saida.txt",[2,12],"&|&")
-#contFrequencia("saida.txt","saida2.txt",";")
-#contFrequencia("testeUnidade.txt","saida2.txt",";")
+extrairAtributos(str(sys.argv[1]),str(sys.argv[2]), uniqueIDIndex, [2,12],"&|&")
+contFrequencia("saida.txt","saida2.txt",";")
+contFrequencia("testeUnidade.txt","saida2.txt",";")

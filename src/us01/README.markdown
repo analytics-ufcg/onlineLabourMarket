@@ -21,12 +21,15 @@ Foram implementados os seguintes scripts:
 1. getSkillRanking.py
  * Input:
  * Output:
- * Executar: 
+ * Autor:
+ * Executar:
 1. getSkillInTime.py
  * Input:
  * Output:
+ * Autor:
  * Executar: 
 1. plotTimeSeries.R
  * Input:
  * Output:
+ * Autor:
  * Executar: 
