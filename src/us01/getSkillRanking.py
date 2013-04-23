@@ -69,7 +69,9 @@ def compare(x, y):
     num2 = int(temp2[1])
     return num2-num
 
+def main():
+    extrairAtributos(str(sys.argv[1]),str(sys.argv[2]), [2,12],"&|&")
+    contFrequencia(str(sys.argv[2]),str(sys.argv[2]),";")
 
-extrairAtributos(str(sys.argv[1]),str(sys.argv[2]), [2,12],"&|&")
-contFrequencia(str(sys.argv[2]),str(sys.argv[2]),";")
-#contFrequencia("testeUnidade.txt","saida2.txt",";")
+
+if  __name__ =='__main__':main()
