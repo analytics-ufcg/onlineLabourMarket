@@ -70,6 +70,6 @@ def compare(x, y):
     return num2-num
 
 
-extrairAtributos(str(sys.argv[1]),str(sys.argv[2]), uniqueIDIndex, [2,12],"&|&")
-contFrequencia("saida.txt","saida2.txt",";")
-contFrequencia("testeUnidade.txt","saida2.txt",";")
+extrairAtributos(str(sys.argv[1]),str(sys.argv[2]), [2,12],"&|&")
+contFrequencia(str(sys.argv[2]),str(sys.argv[2]),";")
+#contFrequencia("testeUnidade.txt","saida2.txt",";")
