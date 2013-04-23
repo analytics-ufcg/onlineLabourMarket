@@ -8,6 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class SkillInTimeMethod {
@@ -23,7 +26,8 @@ public class SkillInTimeMethod {
 	     
 	     String skillFileLine = readSkillFile.readLine();
 	     
-	    
+	     int cont1 = 0;
+	     int cont2 = 0;
 	     while(skillFileLine != null){
 	    	 
 	    	 String skillRanking = skillFileLine.split(";")[0];
@@ -36,50 +40,57 @@ public class SkillInTimeMethod {
 	    	 String dataFileLine = readDataFile.readLine();
 	    	 
 	    	 String firstTime = dataFileLine.split("\\|")[0];
-	    	 System.out.println("Processando: " + skillRanking + "...");
+	    	 //System.out.println("Processando: " + skillRanking + "...");
 	    	
 	    	 int freq = 0;
 	    	 while(dataFileLine != null){
 	    		
 	    		
-	    		String dataSkill = dataFileLine.split("\\|")[12];
+	    		String dataSkills = dataFileLine.split("\\|")[12];
+	    		
+	    		List skillList = Arrays.asList(dataSkills.substring(1, dataSkills.length()-1).split(";"));
 	    		String time = dataFileLine.split("\\|")[0];
-	    		 System.out.println(dataSkill.substring(1, dataSkill.length()-1));
+	    		//System.out.println(dataFileLine);
 	    		if(firstTime.equals(time)){
-	    			
-	    			if(skillRanking.equals(dataSkill.substring(1, dataSkill.length()-1))){
-	    				 
+	    			System.out.println("first:" + firstTime + "--" + "time:" + time + "--" + skillRanking);
+	    			if(skillList.contains(skillRanking)){
+	    				
 	    				freq++;
 		    		}
 	    		}else{
-	    			
-	    			printWriter.println(time + ";" + freq);
+	    			System.out.println(skillRanking +"--"+firstTime+"--"+freq);
+	    			System.out.println("entrou no else");
+	    			printWriter.println(firstTime + ";" + freq);
 	    			firstTime = time;
 	    			freq = 0;
 	    			
-	    			if(skillRanking.equals(dataSkill.substring(1, dataSkill.length()-1))){
-	    				 
-	    				freq++;
-		    		}
+//	    			if(skillList.contains(skillRanking)){
+//	    				 
+//	    				freq++;
+//		    		}
 	    			    			
 	    		}
 	    		
 	    		dataFileLine = readDataFile.readLine();
-	    		 
+	    		if(dataFileLine == null){
+	    			printWriter.println(firstTime + ";" + freq);
+	    			
+	    		}
+	    		cont2++; 
 	    	 }
 	    	
 		     printWriter.flush();
 		     printWriter.close();
 		     
 	    	 skillFileLine = readSkillFile.readLine(); 
-	    	 
+	    	 cont1++;
 	     }
 
 		
 	}
 	
 	public static void main(String[] args) throws IOException{
-		getSkillInTime(dataDir + "elanceSample.txt", dataDir + "saida2.txt");
+		getSkillInTime(dataDir + "elanceSampleTest.txt", dataDir + "skillTestFile.txt");
 		
 	}
 
