@@ -1,0 +1,6 @@
+MySQL;3
+Graphic Design;2
+HTML;1
+Palm;1
+iPhone;1
+Animation;1

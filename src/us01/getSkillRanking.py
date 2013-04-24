@@ -4,10 +4,9 @@ import sys
 
 # Produce a ranking of skills based in how many different tasks it appears on
 def contFrequencia(inputFileName,idIndex,skillIndex,sep="&|&",skillSep=";"):
-    print inputFileName
     processedIDs = []
     ranking = {}
-    inputFile = open(str(inputFileName), "r")
+    inputFile = open(inputFileName, "r")
     for line in inputFile.readlines():
         currentLine = line.split(sep)
         currentID = currentLine[idIndex]
@@ -28,8 +27,8 @@ def contFrequencia(inputFileName,idIndex,skillIndex,sep="&|&",skillSep=";"):
 def main():
     inputFileName = str(sys.argv[1])
     outputFileName = str(sys.argv[2])
-    idIndex = sys.argv[3]
-    skillIndex = sys.argv[4]
+    idIndex = int(sys.argv[3])
+    skillIndex = int(sys.argv[4])
     
 #    rankingCode = GetSkillRanking()
     
