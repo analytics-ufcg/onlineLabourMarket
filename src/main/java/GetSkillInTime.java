@@ -15,7 +15,7 @@ public class GetSkillInTime {
 	
 	public static void filterDataBySkill(String fileName, String skill) throws IOException{
 
-		String outputFileName = skill + ".txt";
+		String outputFileName = "data/" + skill + ".txt";
 		
 		FileWriter fileWriter = new FileWriter(outputFileName, false);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -34,7 +34,7 @@ public class GetSkillInTime {
 			if(!currentTime.equals(lineTime)){
 				
 				if(!currentTime.isEmpty()){
-					printWriter.println(lineTime + ";" + freq);
+					printWriter.println(currentTime + ";" + freq);
 				}
 				
 				currentTime = lineTime;
@@ -45,7 +45,9 @@ public class GetSkillInTime {
 			if(skillList.contains(skill)){
 				freq++;
 			}
+			
 		}
+		printWriter.println(currentTime + ";" + freq);
 		
 		input.close();
 
