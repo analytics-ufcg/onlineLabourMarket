@@ -1,6 +1,7 @@
 # import to use command-line arguments
 
 import sys
+import shutil
 
 # Produce a ranking of skills based in how many different tasks it appears on
 # Autor: Alberto, Ricardo
@@ -28,7 +29,7 @@ def buildRanking(inputFileName,idIndex,skillIndex,sep="&|&",skillSep=";"):
 # autor: Giovani
 def formatDemandFile(arqEntrada):
     SEP = '&|&'
-    saida = open("elanceEditado.txt", "w")
+    saida = open("tmp.txt", "w")
     entrada = open(arqEntrada, "r")
     for row in entrada:
         observationTime, jobtitle,uniqueJobId,jobType,jobRequesterName,jobUniqueRequesterId, expirationTime, price,price2, proposals, description, category ,keywords,requestRate = row.split(SEP)
