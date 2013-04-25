@@ -29,9 +29,12 @@ def buildRanking(inputFileName,idIndex,skillIndex,sep="&|&",skillSep=";"):
 def formatDemandFile(arqEntrada):
     SEP = '&|&'
     saida = open("elanceEditado.txt", "w")
-    for row in open(arqEntrada, "r"):
+    entrada = open(arqEntrada, "r")
+    for row in entrada:
         observationTime, jobtitle,uniqueJobId,jobType,jobRequesterName,jobUniqueRequesterId, expirationTime, price,price2, proposals, description, category ,keywords,requestRate = row.split(SEP)
-        keywords = str(keywords).replace("S", "", 1)
-        uniqueJobId = str(uniqueJobId).replace("\"", "")
+        keywords = str(keywords)[1:]
+        uniqueJobId = str(uniqueJobId)[:-2] + " "
         saida.write(observationTime + SEP + jobtitle +SEP+ uniqueJobId +SEP+ jobType +SEP+ jobRequesterName +SEP+ jobUniqueRequesterId +SEP+ expirationTime +SEP+ price +SEP+ price2 +SEP+ proposals +SEP+ description +SEP+ category +SEP+ keywords + SEP + requestRate)
+    entrada.close()
     saida.close()
+    shutil.move(saida.name, entrada.name)
