@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -15,7 +16,17 @@ public class GetSkillInTimeTest {
 	
 	@BeforeClass
 	public static void cleanTestDir(){
-		new File("*txt").delete();
+		File dir = new File(".");
+		File [] files = dir.listFiles(new FilenameFilter() {
+		    @Override
+		    public boolean accept(File dir, String name) {
+		        return name.endsWith(".txt");
+		    }
+		});
+		
+		for (File file : files) {
+			file.delete();
+		}
 	}
 
 	private String demandFileName = "demand.txt";
@@ -61,7 +72,7 @@ public class GetSkillInTimeTest {
 	@Test
 	public void testFilterDataBySkill() throws IOException {
 		GetSkillInTime.filterDataBySkill(demandFileName , "HTML");
-		Scanner inputScanner = new Scanner("HTML.txt");
+		Scanner inputScanner = new Scanner(new File("HTML.txt"));
 		assertEquals("1351114699;1",inputScanner.nextLine());
 		assertEquals("1351115263;1",inputScanner.nextLine());
 		assertEquals("1351115332;1",inputScanner.nextLine());

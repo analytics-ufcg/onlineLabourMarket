@@ -15,7 +15,7 @@ public class GetSkillInTime {
 	
 	public static void filterDataBySkill(String fileName, String skill) throws IOException{
 
-		String outputFileName = "data/" + skill + ".txt";
+		String outputFileName = skill + ".txt";
 		
 		FileWriter fileWriter = new FileWriter(outputFileName, false);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
