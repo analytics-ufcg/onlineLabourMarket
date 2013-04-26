@@ -10,5 +10,5 @@ import sys
 import onlinelabourmarket
         
 if __name__ == '__main__':
-    onlinelabourmarket.formatDemandFile(sys.argv[1])
+    onlinelabourmarket.formatDemandFile(sys.argv[1], sys.argv[2])
 pass
