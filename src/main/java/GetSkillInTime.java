@@ -41,8 +41,8 @@ public class GetSkillInTime {
 				freq = 0;
 			}
 			
-			List<String> skillList = Arrays.asList(split[12].split(";"));
-			if(skillList.contains(skill)){
+			//List<String> skillList = Arrays.asList(split[12].split(";"));
+			if(split[12].equals(skill)){
 				freq++;
 			}
 			
@@ -70,14 +70,15 @@ public class GetSkillInTime {
 		
 		Scanner scanner = new Scanner(new File(args[1]));
 		for (int i = 0; i < lineNumber; i++) {
-			System.err.println(scanner.nextLine());
+			//System.err.println(scanner.nextLine());
+			filterDataBySkill(args[0], scanner.nextLine().split(";")[0]);
 		}
 		
 		String skillString = scanner.nextLine().split(";")[0];
 		
 		scanner.close();
 		
-		filterDataBySkill(args[0], skillString);
+		//filterDataBySkill(args[0], skillString);
 	}
 
 }
