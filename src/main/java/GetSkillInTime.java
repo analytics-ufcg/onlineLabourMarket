@@ -42,7 +42,7 @@ public class GetSkillInTime {
 			}
 			
 			//List<String> skillList = Arrays.asList(split[12].split(";"));
-			if(split[12].equals(skill)){
+			if(split[11].equals(skill)){
 				freq++;
 			}
 			
@@ -74,7 +74,7 @@ public class GetSkillInTime {
 			filterDataBySkill(args[0], scanner.nextLine().split(";")[0]);
 		}
 		
-		String skillString = scanner.nextLine().split(";")[0];
+		//String skillString = scanner.nextLine().split(";")[0];
 		
 		scanner.close();
 		

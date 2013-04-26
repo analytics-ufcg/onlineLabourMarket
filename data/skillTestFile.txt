@@ -1,26 +1,5 @@
-SGraphic Design;1
-Logo Design;1
-Photoshop;1
-Web Design;1
-SMySQL;3
-HTML;3
-PHP;3
-SAnimation;1
-Graphic Design;1
-Banner Ads;1
-SiPhone;2
-Palm;1
-WordPress;2
-SAdmin Assistant;2
-Research;2
-Computer;1
-Data Entry;1
-Java;1
-Objective-C;1
-iPad;1
-Game Development;1
-SCSS;1
-SFinancial Writing;1
-Web Content;1
-Article Writing;1
-Content Writing;1
+Design & Multimedia;2
+IT & Programming;6
+Admin Support;2
+Writing & Translation;1
+

@@ -56,7 +56,7 @@ public class GetSkillInTimeTest {
 		fileWriter = new FileWriter(new File(rankingFileName));
 
 		fileWriter.write("Bnjnj;2\n");
-		fileWriter.write("HTML;2\n");
+		fileWriter.write("IT & Programming;6\n");
 		
 		fileWriter.flush();
 		fileWriter.close();
@@ -71,10 +71,10 @@ public class GetSkillInTimeTest {
 
 	@Test
 	public void testFilterDataBySkill() throws IOException {
-		GetSkillInTime.filterDataBySkill(demandFileName , "HTML");
-		Scanner inputScanner = new Scanner(new File("HTML.txt"));
-		assertEquals("1351114699;1",inputScanner.nextLine());
-		assertEquals("1351115263;1",inputScanner.nextLine());
+		GetSkillInTime.filterDataBySkill(demandFileName , "IT & Programming");
+		Scanner inputScanner = new Scanner(new File("IT & Programming.txt"));
+		assertEquals("1351114699;3",inputScanner.nextLine());
+		assertEquals("1351115263;2",inputScanner.nextLine());
 		assertEquals("1351115332;1",inputScanner.nextLine());
 		inputScanner.close();
 	}

@@ -1,0 +1,8 @@
+IT & Programming;478
+Design & Multimedia;322
+Writing & Translation;164
+Sales & Marketing;113
+Admin Support;98
+Finance & Management;20
+Engineering & Manufacturing;16
+Legal;12
