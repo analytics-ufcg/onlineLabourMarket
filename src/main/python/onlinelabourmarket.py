@@ -1,7 +1,6 @@
 # import to use command-line arguments
 
 import sys
-import shutil
 
 # Produce a ranking of skills based in how many different tasks it appears on
 # Autor: Alberto, Ricardo
@@ -27,10 +26,10 @@ def buildRanking(inputFileName,idIndex,skillIndex,sep="&|&",skillSep=";"):
 
 # Formata arquivo de demanda com erros identificados:
 # autor: Giovani
-def formatDemandFile(arqEntrada):
+def formatDemandFile(fileInName, fileOutName):
     SEP = '&|&'
-    saida = open("tmp.txt", "w")
-    entrada = open(arqEntrada, "r")
+    saida = open(fileOutName, "w")
+    entrada = open(fileInName, "r")
     for row in entrada:
         observationTime, jobtitle,uniqueJobId,jobType,jobRequesterName,jobUniqueRequesterId, expirationTime, price,price2, proposals, description, category ,keywords,requestRate = row.split(SEP)
         keywords = str(keywords)[1:]
@@ -38,4 +37,3 @@ def formatDemandFile(arqEntrada):
         saida.write(observationTime + SEP + jobtitle +SEP+ uniqueJobId +SEP+ jobType +SEP+ jobRequesterName +SEP+ jobUniqueRequesterId +SEP+ expirationTime +SEP+ price +SEP+ price2 +SEP+ proposals +SEP+ description +SEP+ category +SEP+ keywords + SEP + requestRate)
     entrada.close()
     saida.close()
-    shutil.move(saida.name, entrada.name)
