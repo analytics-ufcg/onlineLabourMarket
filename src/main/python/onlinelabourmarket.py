@@ -4,23 +4,17 @@ import sys
 
 # Produce a ranking of skills based in how many different tasks it appears on
 # Autor: Alberto, Ricardo
-def buildRanking(inputFileName,idIndex,skillIndex,sep="&|&",skillSep=";"):
-    processedIDs = []
+def buildRanking(inputFileName,idIndex,skillIndex,sep='&|&',skillSep=";"):
     ranking = {}
     inputFile = open(inputFileName, "r")
     for line in inputFile.readlines():
-        currentLine = line.split(sep)
-        currentID = currentLine[idIndex]
-        if(currentID in processedIDs):
-            continue;
-        else:
-            processedIDs.append(currentID)
-            currentSkills = currentLine[skillIndex].rstrip().split(skillSep)
-            for skill in currentSkills:
-                if(skill in ranking):
-                    ranking[skill] += 1
-                else:
-                    ranking[skill] = 1
+        list = line.split(sep)
+        skills = list[skillIndex].split(skillSep)
+        for skill in skills:
+		    if skill in ranking:
+		        ranking[skill]+=1
+		    else:
+		        ranking[skill]=1
     inputFile.close()
     return ranking
 
