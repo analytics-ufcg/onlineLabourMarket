@@ -17,8 +17,8 @@ def main():
     
     ranking = onlinelabourmarket.buildRanking(inputFileName, idIndex, skillIndex)
     outputFile = open(outputFileName,"w")
-    for w in sorted(ranking, key=ranking.get, reverse=True):
-        outputFile.write(w +";" + str(ranking[w])+"\n")
+    for w in ranking:
+        outputFile.write(w +"\n")
     outputFile.close()
 
 
