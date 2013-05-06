@@ -34,3 +34,18 @@ def formatDemandFile(fileInName, fileOutName):
         saida.write(observationTime + SEP + jobtitle +SEP+ uniqueJobId +SEP+ jobType +SEP+ jobRequesterName +SEP+ jobUniqueRequesterId +SEP+ expirationTime +SEP+ price +SEP+ price2 +SEP+ proposals +SEP+ description +SEP+ category +SEP+ keywords + SEP + requestRate)
     entrada.close()
     saida.close()
+
+# Gera arquivos com as frequências em cada tempo para cada skill
+# autor: Giovani
+def generateTimeLineFilesFromWorkers(fileInName):
+    SEP = '&|&'
+    EXTENSAO = ".txt"
+    SEP_OUT = ";"
+    entrada = open(fileInName, "r")
+    for row in entrada:
+        timeStamp, skill, currentFreq = row.split(SEP)
+        timeStamp = time.ctime(int(timeStamp))
+        saida = open(skill + EXTENSAO, "a")
+        saida.write(timeStamp + SEP_OUT + currentFreq)
+        saida.close()
+    entrada.close()
