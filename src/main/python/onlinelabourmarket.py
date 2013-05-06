@@ -45,7 +45,7 @@ def generateTimeLineFilesFromWorkers(fileInName):
     entrada = open(fileInName, "r")
     for row in entrada:
         timeStamp, skill, currentFreq = row.split(SEP)
-        timeStamp = time.ctime(int(timeStamp))
+        #timeStamp = time.ctime(int(timeStamp))
         saida = open(skill + EXTENSAO, "a")
         saida.write(timeStamp + SEP_OUT + currentFreq)
         saida.close()
