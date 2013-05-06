@@ -36,7 +36,7 @@ def formatDemandFile(fileInName, fileOutName):
     entrada.close()
     saida.close()
 
-# Gera arquivos com as frequências em cada tempo para cada skill
+# Gera arquivos com as frequencias em cada tempo para cada skill
 # autor: Giovani
 def generateTimeLineFilesFromWorkers(fileInName):
     SEP = '&|&'
