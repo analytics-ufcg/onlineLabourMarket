@@ -1,6 +1,7 @@
 # import to use command-line arguments
 
 import sys
+import time
 
 # Produce a ranking of skills based in how many different tasks it appears on
 # Autor: Alberto, Ricardo
