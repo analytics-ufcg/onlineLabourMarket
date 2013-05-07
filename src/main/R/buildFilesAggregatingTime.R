@@ -1,5 +1,5 @@
 date.from.timestamp =  function(ts){
-  return(strptime(structure(ts, class=c("POSIXt", "POSIXct")), "%Y-%m-%d %H"))
+  return(strptime(structure(ts, class=c("POSIXt", "POSIXct")), "%Y-%m-%d"))
 }
 
 files = list.files("requesters", full.names=T)
