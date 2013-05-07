@@ -9,5 +9,7 @@ for(f in files) {
   dados$V3 = date.from.timestamp(dados$V1)
   ag = with(dados, aggregate(V2, list(as.numeric(V3)), sum))
   colnames(ag) = c("timestamp", "Elance")
-  write.table(file=gsub("requesters/", "", f), ag, row.names=F, col.names=T, sep=",")
+  nome = gsub("requesters/", "", f)
+  nome = gsub(".txt", ".csv", nome)
+  write.csv(file=nome, ag, row.names=F, col.names=F, sep=",", quote=F)
 }
