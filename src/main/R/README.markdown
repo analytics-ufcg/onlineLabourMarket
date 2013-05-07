@@ -6,3 +6,9 @@ Código R/Rscript
  * Output: um gráfico de linha
  * Autor: Giovani
  * Executar: ./plotTimeSeries.R path_to_input_files 
+ 
+2. buildFilesAggregatingTime.R
+ * Input: diretório nomeado como "requesters" contendo os arquivos a serem processados
+ * Output: arquivos com o timestamp,frequencia para cada habilidade
+ * Autor: Giovani
+ * Executar: ./buildFilesAggregatingTime.R
