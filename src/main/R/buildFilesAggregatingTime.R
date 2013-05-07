@@ -5,7 +5,7 @@ date.from.timestamp =  function(ts){
 files = list.files("requesters", full.names=T)
 
 for(f in files) {
-  read.table(f, sep=";")
+  dados = read.table(f, sep=";")
   dados$V3 = date.from.timestamp(dados$V1)
   ag = with(dados, aggregate(V2, list(as.numeric(V3)), sum))
   colnames(ag) = c("timestamp", "frequencia")
