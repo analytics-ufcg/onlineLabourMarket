@@ -2,14 +2,25 @@ date.from.timestamp =  function(ts){
   return(strptime(structure(ts, class=c("POSIXt", "POSIXct")), "%Y-%m-%d"))
 }
 
-files = list.files("requesters", full.names=T)
+args = commandArgs(TRUE)
+source.dir = as.character(args[1])
 
-for(f in files) {
+files = list.files(source.dir, full.names=T, pattern=".txt")
+
+generating.csv.file = function(f) {
   dados = read.table(f, sep=";")
   dados$V3 = date.from.timestamp(dados$V1)
   ag = with(dados, aggregate(V2, list(as.numeric(V3)), sum))
   colnames(ag) = c("timestamp", "Elance")
-  nome = gsub("requesters/", "", f)
+  nome = gsub(paste(source.dir,"/", sep=""), "", f)
   nome = gsub(".txt", ".csv", nome)
   write.csv(file=nome, ag, row.names=F, col.names=F, sep=",", quote=F)
 }
+
+iterate.files = function(files) {
+  for(f in files) {
+    generating.csv.file(f)
+  }  
+}
+
+iterate.files(files)

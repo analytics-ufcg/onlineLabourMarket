@@ -9,6 +9,6 @@ Código R/Rscript
  
 2. buildFilesAggregatingTime.R
  * Input: diretório nomeado como "requesters" contendo os arquivos a serem processados
- * Output: arquivos com o timestamp,frequencia para cada habilidade
+ * Output: arquivos com o timestamp,plataforma para cada habilidade
  * Autor: Giovani
- * Executar: ./buildFilesAggregatingTime.R
+ * Executar: Rscript ./buildFilesAggregatingTime.R nomeDoDiretorioContendoArquivos
