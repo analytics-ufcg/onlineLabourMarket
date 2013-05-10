@@ -12,9 +12,9 @@ generating.csv.file = function(f) {
   dados$V3 = date.from.timestamp(dados$V1)
   ag = with(dados, aggregate(V2, list(as.numeric(V3)), sum))
   colnames(ag) = c("timestamp", "Elance")
-  nome = gsub(paste(source.dir,"/", sep=""), "", f)
+  nome = f
   nome = gsub(".txt", ".csv", nome)
-  write.csv(file=nome, ag, row.names=F, col.names=F, sep=",", quote=F)
+  write.csv(file=nome, ag, row.names=F, quote=F)
 }
 
 iterate.files = function(files) {
