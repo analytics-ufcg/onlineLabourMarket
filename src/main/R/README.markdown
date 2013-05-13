@@ -12,3 +12,9 @@ Código R/Rscript
  * Output: arquivos com o timestamp,plataforma para cada habilidade
  * Autor: Giovani
  * Executar: Rscript ./buildFilesAggregatingTime.R nomeDoDiretorioContendoArquivos
+ 
+ 3. buildRetributionFiles.R
+ * Input: diretório que contém os arquivos a serem processados com o formato .csv
+ * Output: arquivos com timestamp,plataforma,lista para cada habilidade agrupados por dia
+ * Autor: Giovani e Elias
+ * Executar: Rscript buildRetributionFiles.R diretorioContendoArquivos
