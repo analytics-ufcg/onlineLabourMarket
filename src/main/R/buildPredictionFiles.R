@@ -47,9 +47,12 @@ date.from.timestamp =  function(ts){
 }
 
 iterate.files = function(files) {
+  predictions = c()
   for(f in files) {
-    generate.predict(f)
-  }  
+    cbind(predictions, generate.predict(f))
+  }
+  return(predictions)
 }
 
-iterate.files(files)
+predicoes.oferta = iterate.files(files.oferta)
+predicoes.demanda = iterate.files(files.oferta)
