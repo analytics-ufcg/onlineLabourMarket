@@ -12,7 +12,7 @@ dia.inicial = 1362193200
 dia.final = 1372906800
 
 oferta = as.character(args[1])
-#demanda = as.character(args[4])
+demanda = as.character(args[2])
 
 qnt.dias.a.prever = ((as.numeric(date.from.timestamp(dia.final)) 
                       -as.numeric(date.from.timestamp(dia.inicial)))/DURACAO.DIA) + 1
@@ -26,17 +26,16 @@ calcula.n.ahead = function(ts) {
 }
 
 generate.predict = function(f) {
-  dados = read.csv(f, header=F)
+  dados = read.csv(f, header=T)
   valores = dados$Elance
-  print(valores)
   auto.regressao = ar.burg(valores, order.max=124, AIC=T)
-  pred.total = predict(auto.regressao, se.fit=T, n.ahead=126)
-  return(pred.total$pred)
+  pred.total = predict(auto.regressao, se.fit=T, n.ahead=125)
+  return(cbind(pred.total$pred, pred.total$se))
 }
 
 generate.timestamps = function() {
   timestamps = c()
-  for(i in seq(1:126)) {
+  for(i in seq(1:125)) {
     timestamps[i] = dia.inicial + (DURACAO.DIA * (i - 1))
   }
   return(timestamps)
@@ -49,25 +48,24 @@ output.oferta = cbind(col.timestamps.oferta, predicao.oferta)
 
 output.oferta = as.data.frame(output.oferta)
 
-colnames(output.oferta) = c("timestamp", "Elance")
+colnames(output.oferta) = c("timestamp", "Elance", "erro")
 
 nome.skill = gsub("^[a-z]+/[a-z]+/", "", oferta)
 path.futuro = "futuro/oferta/"
 
-
 write.csv(file=paste(path.futuro, nome.skill, sep=""), output.oferta, row.names=F, quote=F)
 
-#predicao.demanda = generate.predict(demanda)
-#col.timestamps.demanda = generate.timestamps()
+predicao.demanda = generate.predict(demanda)
+col.timestamps.demanda = generate.timestamps()
 
-#output.demanda = cbind(col.timestamps.demanda, predicao.demanda)
+output.demanda = cbind(col.timestamps.demanda, predicao.demanda)
 
-#output.demanda = as.data.frame(output.demanda)
+output.demanda = as.data.frame(output.demanda)
 
-#colnames(output.demanda) = c("timestamp", "Elance")
+colnames(output.demanda) = c("timestamp", "Elance", "erro")
 
-#nome.skill = gsub("^[a-z]+/[a-z]+/", "", demanda)
-#path.futuro = "futuro/demanda/"
+nome.skill = gsub("^[a-z]+/[a-z]+/", "", demanda)
+path.futuro = "futuro/demanda/"
 
 
-#write.csv(file=paste(path.futuro, nome.skill, sep=""), output.demanda, row.names=F, quote=F)
+write.csv(file=paste(path.futuro, nome.skill, sep=""), output.demanda, row.names=F, quote=F)
