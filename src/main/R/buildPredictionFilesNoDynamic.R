@@ -8,14 +8,14 @@ date.from.timestamp =  function(ts){
 
 DURACAO.DIA = 86400
 
-dia.inicial = as.numeric(args[1])
-dia.final = as.numeric(args[2])
+dia.inicial = 1362193200
+dia.final = 1372906800
 
-oferta = as.character(args[3])
-demanda = as.character(args[4])
+oferta = as.character(args[1])
+#demanda = as.character(args[4])
 
 qnt.dias.a.prever = ((as.numeric(date.from.timestamp(dia.final)) 
-                     -as.numeric(date.from.timestamp(dia.inicial)))/DURACAO.DIA) + 1
+                      -as.numeric(date.from.timestamp(dia.inicial)))/DURACAO.DIA) + 1
 
 #usado no n.ahead do predict
 #quantidade de dias a partir da primeira data do futuro
@@ -26,17 +26,17 @@ calcula.n.ahead = function(ts) {
 }
 
 generate.predict = function(f) {
-  dados = read.csv(f)
-  n.steps = calcula.n.ahead(dados$timestamp[nrow(dados)])
+  dados = read.csv(f, header=F)
   valores = dados$Elance
-  auto.regressao = ar.burg(valores, order.max=nrow(dados)-1, AIC=T)
-  pred.total = predict(auto.regressao, se.fit=T, n.ahead=n.steps)
-  return(pred.total$pred[(n.steps-qnt.dias.a.prever+1):n.steps])
+  print(valores)
+  auto.regressao = ar.burg(valores, order.max=124, AIC=T)
+  pred.total = predict(auto.regressao, se.fit=T, n.ahead=126)
+  return(pred.total$pred)
 }
 
 generate.timestamps = function() {
   timestamps = c()
-  for(i in seq(1:qnt.dias.a.prever)) {
+  for(i in seq(1:126)) {
     timestamps[i] = dia.inicial + (DURACAO.DIA * (i - 1))
   }
   return(timestamps)
@@ -57,17 +57,17 @@ path.futuro = "futuro/oferta/"
 
 write.csv(file=paste(path.futuro, nome.skill, sep=""), output.oferta, row.names=F, quote=F)
 
-predicao.demanda = generate.predict(demanda)
-col.timestamps.demanda = generate.timestamps()
+#predicao.demanda = generate.predict(demanda)
+#col.timestamps.demanda = generate.timestamps()
 
-output.demanda = cbind(col.timestamps.demanda, predicao.demanda)
+#output.demanda = cbind(col.timestamps.demanda, predicao.demanda)
 
-output.demanda = as.data.frame(output.demanda)
+#output.demanda = as.data.frame(output.demanda)
 
-colnames(output.demanda) = c("timestamp", "Elance")
+#colnames(output.demanda) = c("timestamp", "Elance")
 
-nome.skill = gsub("^[a-z]+/[a-z]+/", "", demanda)
-path.futuro = "futuro/demanda/"
+#nome.skill = gsub("^[a-z]+/[a-z]+/", "", demanda)
+#path.futuro = "futuro/demanda/"
 
 
-write.csv(file=paste(path.futuro, nome.skill, sep=""), output.demanda, row.names=F, quote=F)
+#write.csv(file=paste(path.futuro, nome.skill, sep=""), output.demanda, row.names=F, quote=F)
