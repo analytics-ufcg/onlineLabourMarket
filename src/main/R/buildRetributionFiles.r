@@ -28,6 +28,8 @@ generating.csv.file = function(f) {
   ag$lista = gsub(",", ";", ag$lista)
   ag$lista = gsub("\n", "", ag$lista)
   ag$lista = gsub(" ", "", ag$lista)
+  ag$lista = gsub("NA;", "", ag$lista)
+  ag$lista = gsub("NA", "", ag$lista)
   nome.file = paste(output.dir, gsub(source.dir, "", f), sep="/")
   write.csv(ag, file=nome.file, quote=F, row.names=F, sep=",")
   rm(ag)
