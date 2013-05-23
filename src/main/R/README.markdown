@@ -18,3 +18,11 @@ Código R/Rscript
  * Output: arquivos com timestamp,plataforma,lista para cada habilidade agrupados por dia
  * Autor: Giovani e Elias
  * Executar: Rscript buildRetributionFiles.R diretorioContendoArquivos
+ 4. generatePredictions.R
+ * Input: diretórios de workers, requesters e retribuicao contendo apenas os arquivos .csv a serem processados
+ * Output: arquivos com o timestamp,plataforma,erro das predicoes para cada habilidade
+ * Autor: Giovani
+ * Executar: Rscript generatePredictions.R passado/oferta passado/demanda passado/retribuicao
+ * Um detalhe importante na execução do script é que o script deve estar em um diretório que contenha a
+ * seguinte estrutura de diretórios:
+ * passado/oferta, passado/demanda, passado/retribuicao, futuro/oferta, futuro/demanda e futuro/retribuicao
