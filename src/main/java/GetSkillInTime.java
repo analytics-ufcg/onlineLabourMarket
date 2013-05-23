@@ -6,8 +6,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Elias
+ *
+ */
+
 
 public class GetSkillInTime {
+	
+	/*
+	 * Metodo filterDataBySkill(), gera um arquivo para cada categoria.Cada arquivo possui a quantidade de jobs
+	 * da categoria disponiveis por dia.  
+	 */
 	
 	public static void filterDataBySkill(String fileName, String skill)
 			throws IOException {
@@ -18,7 +29,6 @@ public class GetSkillInTime {
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
 		Scanner input = new Scanner(new File(fileName));
-		//ArrayList<Integer> lista = new ArrayList<Integer>();
 		
 		String currentTime = "";
 		String currentDay = "";
@@ -39,8 +49,6 @@ public class GetSkillInTime {
 				}
 
 				currentDay = lineDay;
-				//currentTime = lineTime;
-				
 				freq = 0;
 			}
 			
@@ -59,11 +67,7 @@ public class GetSkillInTime {
 	}
 
 	/**
-	 * Entry point
-	 * 
-	 * @param args
-	 *            "input demand file name" "input raking file name"
-	 * @throws IOException
+	 * Recebe 3 argumentos(elanceAgrupadoPorDia.txt, skillRanking.txt, quantidade de skills)
 	 */
 	public static void main(String[] args) throws IOException {
 

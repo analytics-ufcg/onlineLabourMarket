@@ -9,7 +9,17 @@ import java.util.Date;
 import java.util.Scanner;
 
 
+/**
+ * 
+ * @author Elias
+ *
+ */
+
 public class AgrupaPorDia {
+	
+	/*
+	 * Metodo getDay() recebe um timestamp e retorna a respectiva data formatada(dd/mm/aa).
+	 */
 	
 	public String getDay(String timeStamp){
 		
@@ -22,7 +32,12 @@ public class AgrupaPorDia {
 		return data;
 	}
 	
-	public  void filterDataBySkill(String fileName) throws IOException{
+	/*
+	 * Metodo getElancAgrupadoPorDia() gera o arquivo elanceAgrupadoPorDia.txt, onde os jobs não se
+	 * repetem no mesmo dia.
+	 */
+	
+	public  void getElanceAgrupadoPorDia(String fileName) throws IOException{
 
 		String outputFileName =  "elanceAgrupadoPorDia.txt";
 		ArrayList<String> list = new ArrayList<String>();
@@ -58,7 +73,7 @@ public class AgrupaPorDia {
 			}
 			
 		}
-//		printWriter.println(currentDay + ";" + line);
+
 		
 		input.close();
 
@@ -67,22 +82,14 @@ public class AgrupaPorDia {
 	}
 	
 	/**
-	 * Entry point
-	 * @param args "input demand file name" "input raking file name" 
-	 * @throws IOException
+	 *Recebe como argumento o elanceFiltradoPorPrice.txt, gerado através da classe ChancePriceFormat
 	 */
 	public static void main(String[] args) throws IOException{
 		
 		AgrupaPorDia agrupando = new AgrupaPorDia();
-		agrupando.filterDataBySkill(args[0]);
+		agrupando.getElanceAgrupadoPorDia(args[0]);
 		
-//		System.out.println(agrupando.getDay("1351114848"));
-//		System.out.println(agrupando.getDay("1351114988"));
-//		System.out.println(agrupando.getDay("1351115537"));
-//		System.out.println(agrupando.getDay("1351116290"));
-//		System.out.println(agrupando.getDay("1351118280"));
-//		System.out.println(agrupando.getDay("1362095789"));
-		//System.out.println(agrupando.getDay("1351116290"));
+
 	}
 
 }

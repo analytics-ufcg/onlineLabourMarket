@@ -6,7 +6,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Elias
+ *
+ */
+
+
 public class ChangePriceFormat {
+	
+	/*
+	 * Metodo changeElancePrice gera o arquivo elanceFiltradoPorPrice.txt, onde o Elance é filtrado , retirando 
+	 * os jobs que são "by hourly" e onde o campo price está preenchido "not sure". 
+	 */
 	
 	public void changeElancePrice(String elanceFile) throws IOException {
 
@@ -81,11 +93,7 @@ public class ChangePriceFormat {
 	
 
 	/**
-	 * Entry point
-	 * 
-	 * @param args
-	 *            "input demand file name" "input raking file name"
-	 * @throws IOException
+	 * Recebe como argumento o arquivo Elance.txt
 	 */
 	public static void main(String[] args) throws IOException {
 		

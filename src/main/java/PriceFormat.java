@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+
+/*
+ * Classe usada para conhecer um pouco dos dados.
+ */
 public class PriceFormat {
 
-	public static void filterDataBySkill(String elanceFile) throws IOException {
+	public static void searchPriceFormat(String elanceFile) throws IOException {
 
 		Scanner scanner = new Scanner(new File(elanceFile));
 		FileWriter defaltPaymentFile = new FileWriter(new File(
@@ -36,35 +40,25 @@ public class PriceFormat {
 			if (lineField[3].equals("Fixed Price")) {
 
 				if (lineField[7].contains(" - $")) {
-					// if(Double.isNaN(Double.parseDouble(lineField[7].split(" - ")[1].replace("$",
-					// "").replace(",", ".")))){
+					
 					 countGoodLines++;
-					// }
-					//price = lineField[7].split(" ")[1];
+					
 				} else if (lineField[7].contains("About $")) {
-					// if(Double.isNaN(Double.parseDouble(lineField[7].split(" ")[2].replace("$",
-					// "").replace(",", ".")))){
+					
 					 countGoodLines++;
-					// }
-					//price = lineField[7].split(" ")[2];
+					
 				} else if (lineField[7].contains("Less than $")) {
-					// if(Double.isNaN(Double.parseDouble(lineField[7].split(" ")[3].replace("$",
-					// "").replace(",", ".")))){
+					
 					 countGoodLines++;
-					// }
-					//price = lineField[7].split(" ")[3];
+					
 				} else if (lineField[7].contains(" or less")) {
-					// if(Double.isNaN(Double.parseDouble(lineField[7].split(" ")[1].replace("$",
-					// "").replace(",", ".")))){
+					
 					 countGoodLines++;
-					// }
-					//price = lineField[7].split(" ")[1];
+					
 				} else if (lineField[7].contains(" or more")) {
-					// if(Double.isNaN(Double.parseDouble(lineField[7].split(" ")[1].replace("$",
-					// "").replace(",", ".")))){
+					
 					 countGoodLines++;
-					// }
-					//price = lineField[7].split(" ")[1];
+					
 				} else if (lineField[7].contains(" Not Sure")) {
 					countNotSure++;
 				} else if (lineField[7].contains("More than")) {
@@ -125,7 +119,7 @@ public class PriceFormat {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		filterDataBySkill(args[0]);
+		searchPriceFormat(args[0]);
 	}
 
 }
