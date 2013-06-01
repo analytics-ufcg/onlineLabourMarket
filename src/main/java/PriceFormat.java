@@ -1,9 +1,11 @@
 
 
 import java.io.File;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -15,100 +17,105 @@ public class PriceFormat {
 	public static void searchPriceFormat(String elanceFile) throws IOException {
 
 		Scanner scanner = new Scanner(new File(elanceFile));
-		FileWriter defaltPaymentFile = new FileWriter(new File(
-				"defaltPaymentFile.txt"), false);
-		PrintWriter printDefaltPayment = new PrintWriter(defaltPaymentFile);
+		FileWriter typePaymentFile = new FileWriter(new File(
+				"TypePaymentFile.txt"), false);
+		PrintWriter printTypePaymentFile = new PrintWriter(typePaymentFile);
 		
-		FileWriter paymentFormatFile = new FileWriter(new File(
-				"paymentFormatFile.txt"), false);
-		PrintWriter printPaymentFormat = new PrintWriter(paymentFormatFile);
+		FileWriter categoryFile = new FileWriter(new File(
+				"TypeCategorysFile.txt"), false);
+		PrintWriter printCategoryFile = new PrintWriter(categoryFile);
 		
+		FileWriter priceFile = new FileWriter(new File(
+				"TypePricesFile.txt"), false);
+		PrintWriter printPriceFile = new PrintWriter(priceFile);
+		
+		FileWriter scalePriceFile = new FileWriter(new File(
+				"TypeScalePriceFile.txt"), false);
+		PrintWriter printScalePriceFile = new PrintWriter(scalePriceFile);
+		
+		ArrayList<String> arrayTypePrice = new ArrayList<String>();
+		ArrayList<String> arrayCategorias = new ArrayList<String>();
+		ArrayList<String> arrayPrices = new ArrayList<String>();
+		ArrayList<String> arrayScalePrices = new ArrayList<String>();
 		int countLines = 0;
 		int countGoodLines = 0;
-		int countHourlyRate = 0;
-		String defaltPayment = "";
-		String paymentFormat = "";
-		String price = null;
+		
+		
+		
 		int countHourly = 0;
-		int countOtherPayment = 0;
-		int countOtherPaymentFormat = 0;
 		int countNotSure = 0;
+		
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
 			String[] lineField = line.split("\\&\\|\\&");
+			String typePrice = lineField[3];
+			String price = lineField[7];
 			
-			if (lineField[3].equals("Fixed Price")) {
+			if((price.toLowerCase().contains("not sure"))){
+				countNotSure++;
+			}
+		
+			if (typePrice.equals("Fixed Price")) {
+				
+				if(price.contains("-") & !arrayScalePrices.contains(price)){
+					printScalePriceFile.println(price);
+				}
 
-				if (lineField[7].contains(" - $")) {
+				if (!(price.contains("-$")) & !(price.toLowerCase().contains("not sure")) & !price.contains("Under $")
+						& !(!price.contains("-") & ("\\" + price).split("\\$").length == 3)) {
 					
-					 countGoodLines++;
-					
-				} else if (lineField[7].contains("About $")) {
-					
-					 countGoodLines++;
-					
-				} else if (lineField[7].contains("Less than $")) {
-					
-					 countGoodLines++;
-					
-				} else if (lineField[7].contains(" or less")) {
-					
-					 countGoodLines++;
-					
-				} else if (lineField[7].contains(" or more")) {
-					
-					 countGoodLines++;
-					
-				} else if (lineField[7].contains(" Not Sure")) {
-					countNotSure++;
-				} else if (lineField[7].contains("More than")) {
-					countGoodLines++;
-				} else {
-					if(!defaltPayment.contains(lineField[7])){
-						defaltPayment = defaltPayment + lineField[7];
+					if(!arrayPrices.contains(price)){
+						printPriceFile.println(price);
+						arrayPrices.add(price);
 					}
-					countOtherPaymentFormat++;
+					
 					
 				}
+				countGoodLines++;
 
-			} else if (lineField[3].equals("Hourly")) {
+			} else  {
 				countHourly++;
-			}else if (lineField[3].equals("Hourly Rate")) {
-				
-				countHourlyRate++;
-			} else {
-				if(!paymentFormat.contains(lineField[3])){
-					paymentFormat = paymentFormat + lineField[3] + "\n"; 
+				if(!arrayTypePrice.contains(typePrice)){
+					printTypePaymentFile.println(typePrice);
+					arrayTypePrice.add(typePrice);
 				}
-				countOtherPayment++;
 				
+			}
+			
+			String categoria = lineField[11];
+			if(!arrayCategorias.contains(categoria)){
+				printCategoryFile.println(categoria);
+				arrayCategorias.add(categoria);
 			}
 			countLines++;
 		}
 		
-		printDefaltPayment.println(defaltPayment);
-		printPaymentFormat.println(paymentFormat);
+		
+		
 		FileWriter fileWriter = new FileWriter(new File(
-				"elanceSummary.txt"), false);
+			"guruSummary.txt"), false);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 		printWriter.println("Lines" + ";" + countLines);
 		printWriter.println("Good Lines" + ";" + countGoodLines);
 		printWriter.println("Skill per Hourly" + ";" + countHourly);
-		printWriter.println("Skill per Hourly Rate" + ";" + countHourlyRate);
-		printWriter.println("Skill with other payment" + ";" + countOtherPayment);
-		printWriter.println("Skill with other payment format" + ";"
-				+ countOtherPaymentFormat);
+
 		printWriter.println("Payment not sure" + ";" + countNotSure);
 
 		scanner.close();
 		printWriter.flush();
 		printWriter.close();
 
-		printDefaltPayment.flush();
-		printDefaltPayment.close();
+		printTypePaymentFile.flush();
+		printTypePaymentFile.close();
 		
-		printPaymentFormat.flush();
-		printPaymentFormat.close();
+		printCategoryFile.flush();
+		printCategoryFile.close();
+		
+		printPriceFile.flush();
+		printPriceFile.close();
+		
+		printScalePriceFile.flush();
+		printScalePriceFile.close();
 	}
 
 	/**
@@ -120,6 +127,16 @@ public class PriceFormat {
 	 */
 	public static void main(String[] args) throws IOException {
 		searchPriceFormat(args[0]);
+//		String line = "1362095806&|&Logo Completion&|&https://www.guru.com/jobs/Logo-Completion/923142&|&Fixed Price&|&Gwyn&|&/pro/employerhistory.aspx?compid=572742&|&- Expires&|&Not Sure&|&Not Sure&|&22&|&Have designed the concept for five logos: Need a freelancer to: 1. lay the lettering so that each logo is the same: 2. Change the font size and correct wording on the logos that go around each&|&Graphic Design & Multimedia&|&logos & identity packages;creative, innovate, cooperative is most impt.&|&$45";
+//		String[] linefield = line.split("\\&\\|\\&");
+//		System.out.println(linefield.length);
+//		System.out.println(linefield[7]);
+//		System.out.println(("\\" + linefield[7]).toLowerCase().contains("not sure"));
+//		System.out.println((linefield[7]).toLowerCase().contains("not sure"));
+//		System.out.println(("\\" + linefield[7]).contains("not sure"));
+//		System.out.println(!("\\" + linefield[7]).toLowerCase().contains("not sure"));
+//		System.out.println(false &  false);
+//		System.out.println(false &&  false);
 	}
 
 }

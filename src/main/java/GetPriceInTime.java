@@ -24,7 +24,7 @@ public class GetPriceInTime {
 	 * preco da categoria por dia.
 	 */
 
-	public static void getPriceFilesInTime(String fileName, String skill)
+	public  void geraArquivosParaCadaSkill(String fileName, String skill,String plataforma)
 			throws IOException {
 
 		String outputFileName =  "pricesInTime2/" + skill + ".csv";
@@ -36,12 +36,13 @@ public class GetPriceInTime {
 		ArrayList<Integer> lista = new ArrayList<Integer>();
 		String currentDay = "";
 		String currentTime = "";
-		int freq = 0;
 		
-		printWriter.println("currentTime,Elance,lista");
+		String cabecalho = escolheCabecalhoArquivo(plataforma);
+		printWriter.println("currentTime," + cabecalho + ",lista");
+		
 		while (input.hasNextLine()) {
 
-			String[] split = input.nextLine().split(";");
+			String[] split = input.nextLine().split(",");
 
 			String lineDay = split[0];
 
@@ -115,23 +116,34 @@ public class GetPriceInTime {
 		printWriter.flush();
 		printWriter.close();
 	}
+	
+	private String escolheCabecalhoArquivo(String plataforma){
+		
+		String cabecalho = "";
+		if(plataforma.toLowerCase().equals("guru")){
+			cabecalho = "Guru";
+		}else if(plataforma.toLowerCase().equals("elance")){
+			cabecalho = "Elance";
+		}
+		
+		return cabecalho;
+	}
 
 	/**
-	 * Recebe 3 argumentos(elanceAgrupadoPorDia.txt, skillRanking.txt, quantidade de skills)
+	 * Recebe 4 argumentos(elanceAgrupadoPorDia.csv ou guruAgrupadoPorDia.csv, skillRanking.txt, 
+	 * quantidade de skills e o nome da plataforma)
 	 */
 	
 	public static void main(String[] args) throws IOException {
 
-		if (args.length < 3) {
-			System.err
-					.print("uage: java GetPriceInTime <input_demand_file> <skill ranking> <line_number>");
-		}
+		GetPriceInTime gpit = new GetPriceInTime();
 
 		int lineNumber = Integer.valueOf(args[2]);
+		String plataforma = args[3];
 
 		Scanner scanner = new Scanner(new File(args[1]));
 		for (int i = 0; i < lineNumber; i++) {
-			getPriceFilesInTime(args[0], scanner.nextLine().split(";")[0]);
+			gpit.geraArquivosParaCadaSkill(args[0], scanner.nextLine().split(";")[0],plataforma);
 		}
 
 		scanner.close();

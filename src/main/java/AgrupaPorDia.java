@@ -21,7 +21,7 @@ public class AgrupaPorDia {
 	 * Metodo getDay() recebe um timestamp e retorna a respectiva data formatada(dd/mm/aa).
 	 */
 	
-	public String getDay(String timeStamp){
+	private String getDay(String timeStamp){
 		
 		Integer inteiro = Integer.parseInt(timeStamp);
 		Timestamp stamp = new Timestamp(inteiro);
@@ -37,9 +37,9 @@ public class AgrupaPorDia {
 	 * repetem no mesmo dia.
 	 */
 	
-	public  void getElanceAgrupadoPorDia(String fileName) throws IOException{
+	private  void getElanceAgrupadoPorDia(String fileName,String plataforma) throws IOException{
 
-		String outputFileName =  "elanceAgrupadoPorDia.txt";
+		String outputFileName =  escolheNomeArquivo(plataforma);
 		ArrayList<String> list = new ArrayList<String>();
 		FileWriter fileWriter = new FileWriter(outputFileName, false);
 		PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -47,15 +47,12 @@ public class AgrupaPorDia {
 		Scanner input = new Scanner(new File(fileName));
 		
 		String currentDay = "";
-		
 		String line = "";
 		
 		while(input.hasNextLine()){
 			
 			line = input.nextLine();
-			
-			String[] split = line.split(";");
-			
+			String[] split = line.split(",");
 			String lineDay = getDay(split[0]);
 			
 			if(!currentDay.split("/")[0].equals(lineDay.split("/")[0])){
@@ -81,13 +78,28 @@ public class AgrupaPorDia {
 		printWriter.close();
 	}
 	
+	private String escolheNomeArquivo(String plataforma){
+		
+		String nomeArquivo = "";
+		if(plataforma.toLowerCase().equals("guru")){
+			nomeArquivo = "guruAgrupadoPorDia.csv";
+		}else if(plataforma.toLowerCase().equals("elance")){
+			nomeArquivo = "elanceAgrupadoPorDia.csv";
+		}
+		
+		return nomeArquivo;
+	}
+	
 	/**
-	 *Recebe como argumento o elanceFiltradoPorPrice.txt, gerado através da classe ChancePriceFormat
+	 *Recebe como argumento o elanceFiltradoPorPreco.csv ou guruFiltradoPorPreco.csv
+	 *(gerado através da classe ChancePriceFormat) e o nome da plataforma
 	 */
 	public static void main(String[] args) throws IOException{
 		
 		AgrupaPorDia agrupando = new AgrupaPorDia();
-		agrupando.getElanceAgrupadoPorDia(args[0]);
+		
+		String plataforma = args[1];	
+		agrupando.getElanceAgrupadoPorDia(args[0],plataforma);
 		
 
 	}
