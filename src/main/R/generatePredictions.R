@@ -36,9 +36,11 @@ generate.predict = function(f) {
   ts.train = window(ts, end=(end(ts)*0.8))
   ts.test = window(ts, start=(end(ts)*0.8))
   fit = auto.arima(ts.train)
-  fcast = forecast(fit, h=qnt.dias.a.prever)
+  fcast = forecast(fit, h=length(ts.test))
   acuracia = as.data.frame(accuracy(fcast, ts.test))
   rmse = rep(acuracia[2, 1], qnt.dias.a.prever)
+  fit = auto.arima(ts)
+  fcast = forecast(fit, h=qnt.dias.a.prever)
   predictions = as.data.frame(fcast)[,1]
   return(cbind(predictions, rmse))
 }
