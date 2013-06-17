@@ -11,27 +11,30 @@ DURACAO.DIA = 86400
 dia.inicial = 1362193200
 dia.final = 1372906800
 
-dir.oferta = args[1]
-dir.demanda = args[2]
-dir.retribuicao = args[3]
+dir = args[1]
 
-files.oferta = list.files(dir.oferta, full.names=T, pattern=".csv")
-files.demanda = list.files(dir.demanda, full.names=T, pattern=".csv")
-files.retribuicao = list.files(dir.retribuicao, full.names=T, pattern=".csv")
+files = list.files(dir, full.names=T, pattern=".csv")
 
 qnt.dias.a.prever = ((as.numeric(date.from.timestamp(dia.final)) 
                       -as.numeric(date.from.timestamp(dia.inicial)))/DURACAO.DIA) + 1
 
-#quantidade de dias a partir da primeira data do futuro
-#ate a ultima data a ser prevista
-calcula.n.ahead = function(ts) {
-  return((as.numeric(date.from.timestamp(dia.final))
-          -as.numeric(date.from.timestamp(ts+DURACAO.DIA)))/DURACAO.DIA)
+generate.predict = function(file) {
+  dados = read.csv(file)
+  elance = dados$Elance
+  guru = dados$Guru
+  elance.predict = predict.data.frame(elance)
+  guru.predict = predict.data.frame(guru)
+  #Plataformas = elance.predict[, 1] + guru.predict[, 1]
+  #rmse = elance.predict[, 2] + guru.predict[, 2]
+  #porcent.Elance = (elance.predict[, 1]/
+  #                           (elance.predict[, 1] + guru.predict[, 1]))
+  #porcent.Guru = (guru.predict[, 1]/
+  #                           (elance.predict[, 1] + guru.predict[, 1]))
+  return(cbind(elance.predict[, 1], elance.predict[, 2], 
+               guru.predict[, 1], guru.predict[, 2]))
 }
 
-generate.predict = function(f) {
-  value = read.csv(f)
-  value = value$Elance
+predict.data.frame = function(value) {
   ts = ts(value,frequency=7)
   ts.train = window(ts, end=(end(ts)*0.8))
   ts.test = window(ts, start=(end(ts)*0.8))
@@ -42,11 +45,7 @@ generate.predict = function(f) {
   fit = auto.arima(ts)
   fcast = forecast(fit, h=qnt.dias.a.prever)
   predictions = as.data.frame(fcast)[,1]
-  return(cbind(predictions, rmse))
-}
-
-date.from.timestamp =  function(ts){
-  return(strptime(structure(ts, class=c("POSIXt", "POSIXct")), "%Y-%m-%d"))
+  return(as.data.frame(cbind(predictions, rmse)))
 }
 
 generate.timestamps = function() {
@@ -58,17 +57,13 @@ generate.timestamps = function() {
 }
 
 iterate.files = function(files) {
-  predictions = c()
   for(f in files) {
     output = cbind(generate.timestamps(), generate.predict(f))
-    output = as.data.frame(output)
-    colnames(output) = c("timestamp", "Elance", "erro")
+    colnames(output) = c("timestamp", "Elance", "Elance.RMSE", "Guru", "Guru.RMSE")
     nome.skill = gsub("^[a-z]+/", "", f)
     write.csv(file=paste("futuro", nome.skill, sep="/"),
               output, row.names=F, quote=F)
   }
 }
 
-iterate.files(files.oferta)
-iterate.files(files.demanda)
-iterate.files(files.retribuicao)
+iterate.files(files)

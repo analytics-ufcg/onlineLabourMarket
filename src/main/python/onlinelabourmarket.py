@@ -50,3 +50,35 @@ def generateTimeLineFilesFromWorkers(fileInName):
         saida.write(timeStamp + SEP_OUT + currentFreq)
         saida.close()
     entrada.close()
+
+# Gera arquivos com as frequencias em cada tempo para cada skill do Guru
+# autor: Giovani
+def generateGuruTimeLineFilesFromWorkers(fileInName):
+    mapa = {}
+    mapa["IT & Programming"] = ["Programming & Databases", "Websites & Ecommerce", "Networking & Telephone Systems", "ERP & CRM"]
+    mapa["Design & Multimedia"] = ["Photography & Videography", "Graphic Design & Multimedia", "Illustration & Art"]
+    mapa["Writing & Translation"] = ["Writing, Editing & Translation"]
+    mapa["Sales & Marketing"] = ["Marketing & Communications", "Sales & Telemarketing"]
+    mapa["Finance & Management"] = ["Finance & Accounting", "Business Consulting"]
+    mapa["Engineering & Manufacturing"] = ["Engineering & CAD"]
+    mapa["Admin Support"] = ["Admin Support"]
+    mapa["Legal"] = ["Legal"]
+    SEP = '&|&'
+    EXTENSAO = ".txt"
+    SEP_OUT = ";"
+    entrada = open(fileInName, "r")
+    for row in entrada:
+        timeStamp, skill, currentFreq = row.split(SEP)
+        skill = getKey(mapa, skill)
+        saida = open(skill + EXTENSAO, "a")
+        saida.write(timeStamp + SEP_OUT + currentFreq)
+        saida.close()
+    entrada.close()
+
+# Retorna a chave para um valor passado
+def getKey(mapa, value):
+    for key in list(mapa.keys()):
+        if(value in mapa[key]):
+            return key
+    return "Broadcasting"
+

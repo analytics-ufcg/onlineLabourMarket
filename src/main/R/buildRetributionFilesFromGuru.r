@@ -23,7 +23,7 @@ generating.csv.file = function(f) {
     ag$new[i] = list(numeric.vector)
   }
   colnames(ag) = c("timestamp", plataforma, "lista")
-  ag$Elance = unlist(ag$Elance)
+  ag$Guru = unlist(ag$Guru)
   ag$lista = gsub("[c(]", "", as.character(ag$lista))
   ag$lista = gsub(")", "", ag$lista) 
   ag$lista = gsub(",", ";", ag$lista)
