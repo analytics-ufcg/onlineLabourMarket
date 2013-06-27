@@ -25,7 +25,7 @@ public class AgrupaPorDia {
 		
 		Integer inteiro = Integer.parseInt(timeStamp);
 		Timestamp stamp = new Timestamp(inteiro);
-		Date date = new Date(stamp.getTime() * 1000);
+		Date date = new Date((stamp.getTime()+86400) * 1000);
 		int mes = date.getMonth() + 1;
 		String ano = "" + date.getYear();
 		String data = date.getDate() + "/" + mes + "/" + ano.substring(1);

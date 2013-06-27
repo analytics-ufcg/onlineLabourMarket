@@ -44,7 +44,7 @@ public class GetPriceInTime {
 
 			String[] split = input.nextLine().split(",");
 
-			String lineDay = split[0];
+			String lineDay = (split[0]).split(";")[0];
 
 			if (!currentDay.equals(lineDay)) {
 
@@ -77,15 +77,15 @@ public class GetPriceInTime {
 				lista.clear();
 			}
 
-			if (split[3].equals(skill)) {
-				String price = split[4];
+			if (split[2].equals(skill)) {
+				String price = split[3];
 				price = price.replace(",", "");
 				if(price.length() <= 7){
 					int intPrice = Integer.parseInt(price);
 					lista.add(intPrice);
 				}
 			}
-			currentTime = split[1];
+			currentTime = (split[0]).split(";")[1];
 
 		}
 

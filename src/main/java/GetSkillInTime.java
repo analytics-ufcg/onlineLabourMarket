@@ -41,9 +41,8 @@ public class GetSkillInTime {
 
 			String[] split = input.nextLine().split(",");
 
-			String lineDay = split[0];
+			String lineDay = (split[0]).split(";")[0];
 			
-
 			if (!currentDay.equals(lineDay)) {
 
 				if (!currentDay.isEmpty()) {
@@ -54,11 +53,10 @@ public class GetSkillInTime {
 				currentDay = lineDay;
 				freq = 0;
 			}
-			
-			if (split[3].equals(skill)) {
+			if (split[2].equals(skill)) {
 				freq++;
 			}
-			currentTime = split[1];
+			currentTime = (split[0]).split(";")[1];
 		}
 
 		printWriter.println(currentTime + "," + freq);

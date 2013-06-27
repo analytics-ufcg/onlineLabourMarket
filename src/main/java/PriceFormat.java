@@ -70,7 +70,7 @@ public class PriceFormat {
 					}
 					
 					
-				}
+				}				
 				countGoodLines++;
 
 			} else  {
